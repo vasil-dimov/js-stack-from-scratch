@@ -21,7 +21,6 @@ const Nav = () => (
     <button
       className="navbar-toggler navbar-toggler-right"
       type="button"
-      role="button"
       data-toggle="collapse"
       data-target=".js-navbar-collapse"
     >
