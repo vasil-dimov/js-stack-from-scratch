@@ -1,5 +1,7 @@
 // @flow
 
+// flow-disable-next-line
+import Immutable from 'immutable'
 import 'babel-polyfill'
 
 import React from 'react'
@@ -12,16 +14,19 @@ import {
 } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
-import App from './app'
-import helloReducer from './reducer/hello'
+import App from '../shared/app'
+import helloReducer from '../shared/reducer/hello'
 import { APP_CONTAINER_SELECTOR } from '../shared/config'
 import { isProd } from '../shared/util'
 
-// eslint-disable-next-line no-underscore-dangle
+/* eslint-disable no-underscore-dangle */
 const composeEnhancers = (isProd ? null : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+const preloadedState = window.__PRELOADED_STATE__
+/* eslint-enable no-underscore-dangle */
 
 const store = createStore(
   combineReducers({ hello: helloReducer }),
+  { hello: Immutable.fromJS(preloadedState.hello) },
   composeEnhancers(applyMiddleware(thunkMiddleware)),
 )
 
@@ -41,9 +46,9 @@ ReactDOM.render(wrapApp(App, store), rootEl)
 // flow-disable-next-line
 if (module.hot) {
   // flow-disable-next-line
-  module.hot.accept('./app', () => {
+  module.hot.accept('../shared/app', () => {
     // eslint-disable-next-line global-require
-    const NextApp = require('./app').default
+    const NextApp = require('../shared/app').default
     // flow-disable-next-line
     ReactDOM.render(wrapApp(NextApp, store), rootEl)
   })
