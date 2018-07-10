@@ -1,2 +1,6 @@
+[ignore]
+.*/node_modules/immutable/.*
+
 [options]
 suppress_comment= \\(.\\|\n\\)*\\flow-disable-next-line
+
