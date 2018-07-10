@@ -24,7 +24,7 @@ export default {
     port: WDS_PORT,
     hot: true,
   },
-  mode: 'development',
+  mode: isProd ? 'production' : 'development',
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
